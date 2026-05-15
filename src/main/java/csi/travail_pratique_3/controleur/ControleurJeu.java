@@ -2,6 +2,7 @@ package csi.travail_pratique_3.controleur;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.event.ActionEvent;
 
 import javafx.animation.KeyFrame;
@@ -34,7 +35,10 @@ public class ControleurJeu implements ControleurAvecPrincipal {
 
     public void initialize() {
 
-        System.out.println("Zone de jeu initialisée : " + zoneJeu);
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(zoneJeu.widthProperty());
+        clip.heightProperty().bind(zoneJeu.heightProperty());
+        zoneJeu.setClip(clip);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> {
 
@@ -46,17 +50,21 @@ public class ControleurJeu implements ControleurAvecPrincipal {
                 double largeur = zoneJeu.getWidth() > 0 ? zoneJeu.getWidth() : zoneJeu.getPrefWidth();
                 double hauteur = zoneJeu.getHeight() > 0 ? zoneJeu.getHeight() : zoneJeu.getPrefHeight();
 
-                double demiLargeur = b.getForme().getFitWidth() / 2;
-                double demiHauteur = b.getForme().getFitHeight() / 2;
-
-                if (b.getForme().getLayoutX() <= demiLargeur ||
-                        b.getForme().getLayoutX() >= largeur - demiLargeur) {
-                    b.setDx(-b.getDx());
+                if (b.getForme().getLayoutX() <= 0) {
+                    b.getForme().setLayoutX(0);
+                    b.setDx(Math.abs(b.getDx()));
                 }
-
-                if (b.getForme().getLayoutY() <= demiHauteur ||
-                        b.getForme().getLayoutY() >= hauteur - demiHauteur) {
-                    b.setDy(-b.getDy());
+                if (b.getForme().getLayoutX() >= largeur - b.getForme().getFitWidth()) {
+                    b.getForme().setLayoutX(largeur - b.getForme().getFitWidth());
+                    b.setDx(-Math.abs(b.getDx()));
+                }
+                if (b.getForme().getLayoutY() <= 0) {
+                    b.getForme().setLayoutY(0);
+                    b.setDy(Math.abs(b.getDy()));
+                }
+                if (b.getForme().getLayoutY() >= hauteur - b.getForme().getFitHeight()) {
+                    b.getForme().setLayoutY(hauteur - b.getForme().getFitHeight());
+                    b.setDy(-Math.abs(b.getDy()));
                 }
             }
 
@@ -97,8 +105,8 @@ public class ControleurJeu implements ControleurAvecPrincipal {
         double largeur = zoneJeu.getWidth() > 0 ? zoneJeu.getWidth() : zoneJeu.getPrefWidth();
         double hauteur = zoneJeu.getHeight() > 0 ? zoneJeu.getHeight() : zoneJeu.getPrefHeight();
 
-        double x = random.nextDouble() * (largeur - 50) + 25;
-        double y = random.nextDouble() * (hauteur - 50) + 25;
+        double x = random.nextDouble() * (largeur - 40);
+        double y = random.nextDouble() * (hauteur - 40);
 
         double dx = random.nextBoolean() ? 3 : -3;
         double dy = random.nextBoolean() ? 3 : -3;

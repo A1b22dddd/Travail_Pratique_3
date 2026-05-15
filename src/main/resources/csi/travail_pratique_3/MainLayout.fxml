@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -13,8 +14,16 @@
     </left>
 
     <center>
-        <StackPane fx:id="zoneContenu"
-                   style="-fx-background-color: #f0f0f0;"/>
+        <StackPane fx:id="zoneContenu">
+            <ImageView fx:id="imageAccueil"
+                       fitWidth="1070"
+                       fitHeight="700"
+                       preserveRatio="false">
+                <image>
+                    <Image url="@images/imageMenu.jpg"/>
+                </image>
+            </ImageView>
+        </StackPane>
     </center>
 
 </BorderPane>
