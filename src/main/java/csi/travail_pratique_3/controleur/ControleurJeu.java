@@ -28,6 +28,9 @@ public class ControleurJeu implements ControleurAvecPrincipal {
 
     private int indexOrdre = 0;
 
+    // Timeline principale qui anime les balles à chaque 16ms (environ 60 fps)
+    private Timeline timeline;
+
     @Override
     public void setPrincipal(ControleurPrincipal principal) {
         this.principal = principal;
@@ -35,43 +38,64 @@ public class ControleurJeu implements ControleurAvecPrincipal {
 
     public void initialize() {
 
+        // Clip pour empêcher les balles de déborder hors de la zone de jeu
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(zoneJeu.widthProperty());
         clip.heightProperty().bind(zoneJeu.heightProperty());
         zoneJeu.setClip(clip);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> {
+        // --- PAUSE AVEC CLIC DE SOURIS ---
+        // Lorsque le bouton de la souris est pressé et maintenu,
+        // on met la timeline en pause : les balles arrêtent de bouger
+        zoneJeu.setOnMousePressed(event -> timeline.pause());
+
+        // Lorsque le bouton de la souris est relâché,
+        // on reprend la timeline : les balles recommencent à bouger
+        zoneJeu.setOnMouseReleased(event -> timeline.play());
+        // --- FIN PAUSE ---
+
+        // Création de la timeline qui gère le mouvement des balles
+        // Un KeyFrame s'exécute toutes les 16 millisecondes
+        timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> {
 
             for (Balle b : balles) {
 
+                // Déplacer la balle selon sa vitesse (dx, dy)
                 b.getForme().setLayoutX(b.getForme().getLayoutX() + b.getDx());
                 b.getForme().setLayoutY(b.getForme().getLayoutY() + b.getDy());
 
+                // Obtenir les dimensions actuelles de la zone de jeu
                 double largeur = zoneJeu.getWidth() > 0 ? zoneJeu.getWidth() : zoneJeu.getPrefWidth();
                 double hauteur = zoneJeu.getHeight() > 0 ? zoneJeu.getHeight() : zoneJeu.getPrefHeight();
 
+                // Rebond sur le mur gauche
                 if (b.getForme().getLayoutX() <= 0) {
                     b.getForme().setLayoutX(0);
                     b.setDx(Math.abs(b.getDx()));
                 }
+                // Rebond sur le mur droit
                 if (b.getForme().getLayoutX() >= largeur - b.getForme().getFitWidth()) {
                     b.getForme().setLayoutX(largeur - b.getForme().getFitWidth());
                     b.setDx(-Math.abs(b.getDx()));
                 }
+                // Rebond sur le mur du haut
                 if (b.getForme().getLayoutY() <= 0) {
                     b.getForme().setLayoutY(0);
                     b.setDy(Math.abs(b.getDy()));
                 }
+                // Rebond sur le mur du bas
                 if (b.getForme().getLayoutY() >= hauteur - b.getForme().getFitHeight()) {
                     b.getForme().setLayoutY(hauteur - b.getForme().getFitHeight());
                     b.setDy(-Math.abs(b.getDy()));
                 }
             }
 
+            // Vérifier les collisions entre toutes les balles
             gererCollisions();
 
         }));
 
+        // La timeline tourne en boucle indéfiniment
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
