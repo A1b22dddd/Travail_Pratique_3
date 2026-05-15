@@ -4,5 +4,6 @@
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           style="-fx-background-color: white; -fx-padding: 20;">
+           styleClass="stackpane-monjeu"
+           stylesheets="@style.css">
 </StackPane>
