@@ -16,7 +16,10 @@ public class GestionnaireDeScene {
     }
 
     public static void changerScene(String nomFichierFXML, String titre) throws Exception {
-        FXMLLoader chargeur = new FXMLLoader(GestionnaireDeScene.class.getResource("/csi/travail_pratique_3/" + nomFichierFXML + ".fxml"));
+        FXMLLoader chargeur = new FXMLLoader(
+                GestionnaireDeScene.class.getResource("/csi/travail_pratique_3/" + nomFichierFXML)
+        );
+
         Scene scene = new Scene(chargeur.load(), LARGEUR, HAUTEUR);
         fenetrePrincipale.setTitle(titre);
         fenetrePrincipale.setScene(scene);

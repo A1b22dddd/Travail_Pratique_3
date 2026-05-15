@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="csi.travail_pratique_3.controleur.ControleurPrincipal">
+
+    <left>
+        <VBox fx:id="zoneMenu"
+              prefWidth="230"
+              style="-fx-background-color: #2b3e50; -fx-padding: 20;"/>
+    </left>
+
+    <center>
+        <StackPane fx:id="zoneContenu"
+                   style="-fx-background-color: #f0f0f0;"/>
+    </center>
+
+</BorderPane>
