@@ -13,7 +13,7 @@ public class ApplicationTravailTrois extends Application {
 
         GestionnaireDeScene.initialiser(fenetre);
 
-        FXMLLoader chargeur = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        FXMLLoader chargeur = new FXMLLoader(getClass().getResource("MainLayout.fxml"));
         Scene scene = new Scene(chargeur.load(), 1300, 700);
 
         fenetre.setTitle("Menu");

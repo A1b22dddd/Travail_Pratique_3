@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="csi.travail_pratique_3.controleur.ControleurJeu">
+
+    <center>
+        <Pane fx:id="zoneJeu"
+              prefWidth="800"
+              prefHeight="600"
+              style="-fx-background-color: lightgray;"/>
+    </center>
+
+    <bottom>
+        <HBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Button text="Ajouter des balles" onAction="#ajouterDesBalles"/>
+            <Button text="Ajouter une balle" onAction="#ajouterUneBalle"/>
+            <Button text="Retirer une balle" onAction="#retirerUneBalle"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

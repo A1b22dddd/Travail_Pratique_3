@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
 
-<VBox spacing="20" alignment="CENTER"
-      xmlns="http://javafx.com/javafx"
+<VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="csi.travail_pratique_3.controleur.ControleurMenu">
+      fx:controller="csi.travail_pratique_3.controleur.ControleurMenu"
+      spacing="20" alignment="TOP_CENTER"
+      style="-fx-background-color: #2c3e50; -fx-padding: 20;">
 
-    <Button fx:id="btnJouer" text="Jouer" onAction="#actionJouer"/>
-    <Button fx:id="btnInstructions" text="Instructions" onAction="#actionInstructions"/>
-    <Button fx:id="btnQuitter" text="Quitter" onAction="#actionQuitter"/>
+    <Button text="Balle rebondissantes"
+            onAction="#ouvrirJeu"
+            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;"/>
+
+    <Button text="Mon jeu"
+            onAction="#ouvrirMonJeu"
+            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;"/>
+
+    <Button text="Règlements"
+            onAction="#ouvrirReglements"
+            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;"/>
+
+    <Button text="Quitter"
+            onAction="#quitter"
+            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16;"/>
 
 </VBox>
