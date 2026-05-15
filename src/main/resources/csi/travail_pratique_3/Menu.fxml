@@ -2,28 +2,53 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="csi.travail_pratique_3.controleur.ControleurMenu"
-      spacing="20" alignment="TOP_CENTER"
-      styleClass="vbox-menu"
-      stylesheets="@style.css">
+      alignment="CENTER"
+      stylesheets="@style.css"
+      styleClass="vbox-menu">
 
     <Button text="Balle rebondissantes"
             onAction="#ouvrirJeu"
-            styleClass="bouton-menu"/>
+            styleClass="bouton-menu">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/rebon.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button text="Mon jeu"
             onAction="#ouvrirMonJeu"
-            styleClass="bouton-menu"/>
+            styleClass="bouton-menu">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/monjeu.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button text="Règlements"
             onAction="#ouvrirReglements"
-            styleClass="bouton-menu"/>
+            styleClass="bouton-menu">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/reglements.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button text="Quitter"
             onAction="#quitter"
-            styleClass="bouton-quitter"/>
+            styleClass="bouton-quitter">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/quitter.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
 </VBox>

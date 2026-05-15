@@ -9,13 +9,13 @@
             stylesheets="@style.css">
 
     <left>
-        <VBox fx:id="zoneMenu" prefWidth="230"/>
+        <VBox fx:id="zoneMenu" prefWidth="270"/>
     </left>
 
     <center>
         <StackPane fx:id="zoneContenu">
             <ImageView fx:id="imageAccueil"
-                       fitWidth="1070"
+                       fitWidth="1030"
                        fitHeight="700"
                        preserveRatio="false">
                 <image>
