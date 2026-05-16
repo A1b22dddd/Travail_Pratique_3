@@ -28,6 +28,9 @@ public class ControleurJeu implements ControleurAvecPrincipal {
 
     private int indexOrdre = 0;
 
+    // Rayon fixe des balles
+    private static final double RAYON = 25;
+
     // Timeline principale qui anime les balles à chaque 16ms (environ 60 fps)
     private Timeline timeline;
 
@@ -55,37 +58,36 @@ public class ControleurJeu implements ControleurAvecPrincipal {
         // --- FIN PAUSE ---
 
         // Création de la timeline qui gère le mouvement des balles
-        // Un KeyFrame s'exécute toutes les 16 millisecondes
         timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> {
 
             for (Balle b : balles) {
 
                 // Déplacer la balle selon sa vitesse (dx, dy)
-                b.getForme().setLayoutX(b.getForme().getLayoutX() + b.getDx());
-                b.getForme().setLayoutY(b.getForme().getLayoutY() + b.getDy());
+                b.getForme().setCenterX(b.getForme().getCenterX() + b.getDx());
+                b.getForme().setCenterY(b.getForme().getCenterY() + b.getDy());
 
                 // Obtenir les dimensions actuelles de la zone de jeu
                 double largeur = zoneJeu.getWidth() > 0 ? zoneJeu.getWidth() : zoneJeu.getPrefWidth();
                 double hauteur = zoneJeu.getHeight() > 0 ? zoneJeu.getHeight() : zoneJeu.getPrefHeight();
 
                 // Rebond sur le mur gauche
-                if (b.getForme().getLayoutX() <= 0) {
-                    b.getForme().setLayoutX(0);
+                if (b.getForme().getCenterX() - RAYON <= 0) {
+                    b.getForme().setCenterX(RAYON);
                     b.setDx(Math.abs(b.getDx()));
                 }
                 // Rebond sur le mur droit
-                if (b.getForme().getLayoutX() >= largeur - b.getForme().getFitWidth()) {
-                    b.getForme().setLayoutX(largeur - b.getForme().getFitWidth());
+                if (b.getForme().getCenterX() + RAYON >= largeur) {
+                    b.getForme().setCenterX(largeur - RAYON);
                     b.setDx(-Math.abs(b.getDx()));
                 }
                 // Rebond sur le mur du haut
-                if (b.getForme().getLayoutY() <= 0) {
-                    b.getForme().setLayoutY(0);
+                if (b.getForme().getCenterY() - RAYON <= 0) {
+                    b.getForme().setCenterY(RAYON);
                     b.setDy(Math.abs(b.getDy()));
                 }
                 // Rebond sur le mur du bas
-                if (b.getForme().getLayoutY() >= hauteur - b.getForme().getFitHeight()) {
-                    b.getForme().setLayoutY(hauteur - b.getForme().getFitHeight());
+                if (b.getForme().getCenterY() + RAYON >= hauteur) {
+                    b.getForme().setCenterY(hauteur - RAYON);
                     b.setDy(-Math.abs(b.getDy()));
                 }
             }
@@ -129,8 +131,9 @@ public class ControleurJeu implements ControleurAvecPrincipal {
         double largeur = zoneJeu.getWidth() > 0 ? zoneJeu.getWidth() : zoneJeu.getPrefWidth();
         double hauteur = zoneJeu.getHeight() > 0 ? zoneJeu.getHeight() : zoneJeu.getPrefHeight();
 
-        double x = random.nextDouble() * (largeur - 40);
-        double y = random.nextDouble() * (hauteur - 40);
+        // Position aléatoire en tenant compte du rayon
+        double x = RAYON + random.nextDouble() * (largeur - 2 * RAYON);
+        double y = RAYON + random.nextDouble() * (hauteur - 2 * RAYON);
 
         double dx = random.nextBoolean() ? 3 : -3;
         double dy = random.nextBoolean() ? 3 : -3;
@@ -149,14 +152,12 @@ public class ControleurJeu implements ControleurAvecPrincipal {
                 Balle b1 = balles.get(i);
                 Balle b2 = balles.get(j);
 
-                double dx = b1.getForme().getLayoutX() - b2.getForme().getLayoutX();
-                double dy = b1.getForme().getLayoutY() - b2.getForme().getLayoutY();
+                double dx = b1.getForme().getCenterX() - b2.getForme().getCenterX();
+                double dy = b1.getForme().getCenterY() - b2.getForme().getCenterY();
                 double distance = Math.sqrt(dx * dx + dy * dy);
 
-                double rayon1 = b1.getForme().getFitWidth() / 2;
-                double rayon2 = b2.getForme().getFitWidth() / 2;
-
-                if (distance < rayon1 + rayon2) {
+                // Collision si la distance est inférieure à la somme des rayons
+                if (distance < RAYON * 2) {
 
                     TypeBalle gagnant = determinerGagnant(b1.getType(), b2.getType());
 

@@ -1,30 +1,54 @@
 package csi.travail_pratique_3.modele;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 public class Balle {
 
-    private ImageView forme;
+    // Forme circulaire de la balle
+    private Circle forme;
     private TypeBalle type;
     private double dx;
     private double dy;
+
+    // Rayon de la balle
+    private static final double RAYON = 25;
 
     public Balle(double x, double y, TypeBalle type, double dx, double dy) {
         this.type = type;
         this.dx = dx;
         this.dy = dy;
 
-        this.forme = new ImageView(getImage(type));
+        // Créer un cercle
+        this.forme = new Circle(RAYON);
 
-        this.forme.setFitWidth(40);
-        this.forme.setFitHeight(40);
+        // Position initiale (centre du cercle)
+        this.forme.setCenterX(x);
+        this.forme.setCenterY(y);
 
-        this.forme.setLayoutX(x);
-        this.forme.setLayoutY(y);
+        // Appliquer l'image comme remplissage du cercle
+        appliquerImage(type);
     }
 
-    public ImageView getForme() {
+    /**
+     * Applique l'image correspondante au type comme remplissage du cercle.
+     */
+    private void appliquerImage(TypeBalle type) {
+        String chemin = switch (type) {
+            case PIERRE -> "/csi/travail_pratique_3/images/pierre.jpg";
+            case PAPIER -> "/csi/travail_pratique_3/images/papier.jpg";
+            case CISEAU -> "/csi/travail_pratique_3/images/ciseau.jpg";
+        };
+
+        var url = getClass().getResource(chemin);
+        if (url != null) {
+            Image image = new Image(url.toExternalForm());
+            forme.setFill(new ImagePattern(image));
+        }
+    }
+
+    public Circle getForme() {
         return forme;
     }
 
@@ -50,18 +74,6 @@ public class Balle {
 
     public void transformerEn(TypeBalle nouveauType) {
         this.type = nouveauType;
-        this.forme.setImage(getImage(nouveauType));
-    }
-
-    private Image getImage(TypeBalle type) {
-        String chemin = switch (type) {
-            case PIERRE -> "/csi/travail_pratique_3/images/pierre.jpg";
-            case PAPIER -> "/csi/travail_pratique_3/images/papier.jpg";
-            case CISEAU -> "/csi/travail_pratique_3/images/ciseau.jpg";
-        };
-
-        var url = getClass().getResource(chemin);
-        System.out.println("URL trouvée : " + url);
-        return new Image(url.toExternalForm());
+        appliquerImage(nouveauType);
     }
 }
