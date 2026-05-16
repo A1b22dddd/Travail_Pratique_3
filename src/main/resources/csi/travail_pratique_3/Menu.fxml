@@ -2,28 +2,53 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="csi.travail_pratique_3.controleur.ControleurMenu"
-      spacing="20" alignment="TOP_CENTER"
-      style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+      alignment="CENTER"
+      stylesheets="@style.css"
+      styleClass="vbox-menu">
 
     <Button text="Balle rebondissantes"
             onAction="#ouvrirJeu"
-            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;"/>
+            styleClass="bouton-menu">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/rebon.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button text="Mon jeu"
             onAction="#ouvrirMonJeu"
-            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;"/>
+            styleClass="bouton-menu">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/monjeu.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button text="Règlements"
             onAction="#ouvrirReglements"
-            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;"/>
+            styleClass="bouton-menu">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/reglements.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button text="Quitter"
             onAction="#quitter"
-            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16;"/>
+            styleClass="bouton-quitter">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/quitter.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
 
 </VBox>

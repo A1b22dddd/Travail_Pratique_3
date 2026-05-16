@@ -1,0 +1,62 @@
+/* ===== MENU PRINCIPAL ===== */
+.vbox-menu {
+    -fx-background-color: #2b3e50;
+    -fx-padding: 30;
+    -fx-spacing: 40;
+}
+
+/* Boutons bleus du menu */
+.bouton-menu {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-pref-width: 200;
+    -fx-pref-height: 60;
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+    -fx-content-display: left;
+    -fx-graphic-text-gap: 10;
+}
+
+/* Bouton quitter rouge */
+.bouton-quitter {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-pref-width: 200;
+    -fx-pref-height: 60;
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+    -fx-content-display: left;
+    -fx-graphic-text-gap: 10;
+}
+
+/* ===== ZONE DE JEU ===== */
+#zoneJeu {
+    -fx-background-color: lightgray;
+    -fx-border-color: black;
+    -fx-border-width: 3;
+}
+
+/* ===== REGLEMENTS ===== */
+.stackpane-reglements {
+    -fx-padding: 20;
+    -fx-background-color: white;
+}
+
+.textarea-reglements {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ===== MON JEU ===== */
+.stackpane-monjeu {
+    -fx-background-color: white;
+    -fx-padding: 20;
+}
+
+/* ===== LAYOUT PRINCIPAL ===== */
+#zoneMenu {
+    -fx-background-color: #2b3e50;
+    -fx-padding: 20;
+}

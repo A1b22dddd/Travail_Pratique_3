@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           style="-fx-padding: 20; -fx-background-color: white;">
+           styleClass="stackpane-reglements"
+           stylesheets="@style.css">
 
     <TextArea editable="false"
               wrapText="true"
               prefWidth="600"
-              style="-fx-background-color: transparent; -fx-border-color: transparent;"
+              styleClass="textarea-reglements"
               text="Règlements du jeu :&#10;&#10;- Les balles rebondissent dans la zone de jeu.&#10;- Pierre bat Ciseaux, Ciseaux bat Papier, Papier bat Pierre.&#10;- Les balles se transforment lorsqu'elles se touchent.&#10;- Vous pouvez ajouter ou retirer des balles avec les boutons en bas.&#10;&#10;Amusez-vous !"/>
 
 </StackPane>

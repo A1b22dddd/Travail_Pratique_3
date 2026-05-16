@@ -5,18 +5,17 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="csi.travail_pratique_3.controleur.ControleurPrincipal">
+            fx:controller="csi.travail_pratique_3.controleur.ControleurPrincipal"
+            stylesheets="@style.css">
 
     <left>
-        <VBox fx:id="zoneMenu"
-              prefWidth="230"
-              style="-fx-background-color: #2b3e50; -fx-padding: 20;"/>
+        <VBox fx:id="zoneMenu" prefWidth="270"/>
     </left>
 
     <center>
         <StackPane fx:id="zoneContenu">
             <ImageView fx:id="imageAccueil"
-                       fitWidth="1070"
+                       fitWidth="1030"
                        fitHeight="700"
                        preserveRatio="false">
                 <image>
