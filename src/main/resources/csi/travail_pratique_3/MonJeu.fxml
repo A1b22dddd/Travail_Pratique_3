@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
 
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           styleClass="stackpane-monjeu"
-           stylesheets="@style.css">
-</StackPane>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="csi.travail_pratique_3.controleur.ControleurMemoire"
+            stylesheets="@style.css">
+
+    <!-- Titre du jeu -->
+    <top>
+        <VBox alignment="CENTER" styleClass="entete-memoire">
+            <Label text="Jeu de Mémoire" styleClass="titre-memoire"/>
+            <Label fx:id="etiquetteScore" text="Paires trouvées : 0 | Tentatives : 0"
+                   styleClass="score-memoire"/>
+        </VBox>
+    </top>
+
+    <!-- Grille des cartes -->
+    <center>
+        <GridPane fx:id="grilleCartes"
+                  alignment="CENTER"
+                  hgap="10"
+                  vgap="10"
+                  styleClass="grille-memoire">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+        </GridPane>
+    </center>
+
+    <!-- Bouton rejouer en bas -->
+    <bottom>
+        <HBox alignment="CENTER" styleClass="bas-memoire">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="Rejouer" onAction="#rejouer" styleClass="bouton-rejouer"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

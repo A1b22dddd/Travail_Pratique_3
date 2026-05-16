@@ -60,3 +60,62 @@
     -fx-background-color: #2b3e50;
     -fx-padding: 20;
 }
+
+/* ===== JEU MEMOIRE ===== */
+.entete-memoire {
+    -fx-background-color: #2b3e50;
+    -fx-padding: 15;
+    -fx-spacing: 5;
+}
+
+.titre-memoire {
+    -fx-text-fill: white;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.score-memoire {
+    -fx-text-fill: #3498db;
+    -fx-font-size: 14;
+}
+
+.grille-memoire {
+    -fx-background-color: #ecf0f1;
+}
+
+.bas-memoire {
+    -fx-background-color: #2b3e50;
+    -fx-padding: 10;
+}
+
+.bouton-rejouer {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-pref-width: 120;
+    -fx-pref-height: 40;
+}
+
+.carte-bouton {
+    -fx-pref-width: 100;
+    -fx-pref-height: 100;
+    -fx-background-color: #3498db;
+    -fx-border-color: #2980b9;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.carte-bouton:hover {
+    -fx-background-color: #2980b9;
+}
+
+.carte-trouvee {
+    -fx-pref-width: 100;
+    -fx-pref-height: 100;
+    -fx-background-color: #2ecc71;
+    -fx-border-color: #27ae60;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
