@@ -21,6 +21,9 @@ public class ControleurPrincipal {
     // Feuille de style active
     private String cssActif = "/csi/travail_pratique_3/style.css";
 
+    // Contrôleur de la page actuellement affichée
+    private Object controleurActuel;
+
     @FXML
     public void initialize() {
         try {
@@ -40,6 +43,11 @@ public class ControleurPrincipal {
 
     public void afficherPage(String fxml) {
         try {
+            // Arrêter le média si la page actuelle est ControleurMemoire
+            if (controleurActuel instanceof ControleurMemoire c) {
+                c.arreter();
+            }
+
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/csi/travail_pratique_3/" + fxml)
             );
@@ -49,6 +57,9 @@ public class ControleurPrincipal {
             if (ctrl instanceof ControleurAvecPrincipal c) {
                 c.setPrincipal(this);
             }
+
+            // Garder une référence au contrôleur actuel
+            controleurActuel = ctrl;
 
             zoneContenu.getChildren().setAll(page);
 
@@ -62,7 +73,6 @@ public class ControleurPrincipal {
 
     /**
      * Change le thème CSS de toute l'application.
-     * Appelé depuis ControleurMenu quand le joueur clique sur le bouton thème.
      */
     public void changerTheme(String cheminCss) {
         this.cssActif = cheminCss;

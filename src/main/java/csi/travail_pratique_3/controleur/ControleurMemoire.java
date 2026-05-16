@@ -8,6 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -43,6 +49,12 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     // Indique si le joueur peut cliquer (bloqué pendant la vérification)
     private boolean clicAutorise;
 
+    // Lecteur audio pour la chanson
+    private MediaPlayer lecteurAudio;
+
+    // Lecteur vidéo pour la vidéo
+    private MediaPlayer lecteurVideo;
+
     @Override
     public void setPrincipal(ControleurPrincipal principal) {
         this.principal = principal;
@@ -58,6 +70,68 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
 
         initialiserCartes();
         afficherCartes();
+
+        // Lancer le son et la vidéo automatiquement
+        lancerChanson();
+        lancerVideo();
+    }
+
+    /**
+     * Charge et joue la chanson son.mp3 en arrière-plan.
+     */
+    private void lancerChanson() {
+        try {
+            var urlSon = getClass().getResource("/csi/travail_pratique_3/son.mp3");
+            if (urlSon != null) {
+                Media son = new Media(urlSon.toExternalForm());
+                lecteurAudio = new MediaPlayer(son);
+                lecteurAudio.play();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Charge et joue la vidéo vague.mp4 dans une nouvelle fenêtre.
+     */
+    private void lancerVideo() {
+        try {
+            var urlVideo = getClass().getResource("/csi/travail_pratique_3/vague.mp4");
+            if (urlVideo != null) {
+                Media video = new Media(urlVideo.toExternalForm());
+                lecteurVideo = new MediaPlayer(video);
+
+                MediaView vueVideo = new MediaView(lecteurVideo);
+                vueVideo.setFitWidth(640);
+                vueVideo.setFitHeight(360);
+
+                StackPane racine = new StackPane(vueVideo);
+                Scene sceneVideo = new Scene(racine, 640, 360);
+
+                Stage fenetreVideo = new Stage();
+                fenetreVideo.setTitle("Video");
+                fenetreVideo.setScene(sceneVideo);
+                fenetreVideo.setResizable(false);
+                fenetreVideo.show();
+
+                lecteurVideo.play();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Arrête la chanson et la vidéo quand on quitte la page.
+     */
+    public void arreter() {
+        if (lecteurAudio != null) {
+            lecteurAudio.stop();
+        }
+        if (lecteurVideo != null) {
+            lecteurVideo.stop();
+        }
     }
 
     /**
@@ -170,8 +244,9 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
                 clicAutorise = true;
 
                 if (pairestrouvees == 8) {
-                    etiquetteScore.setText("🎉 Bravo ! Toutes les paires trouvées en "
+                    etiquetteScore.setText("Bravo ! Toutes les paires trouvees en "
                             + nombreTentatives + " tentatives !");
+                    if (lecteurAudio != null) lecteurAudio.stop();
                 }
 
             } else {
@@ -190,7 +265,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Remet à zéro la sélection courante.
+     * Remet a zero la selection courante.
      */
     private void reinitialiserSelection() {
         premiereCarteRetournee = null;
@@ -198,10 +273,10 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Met à jour l'étiquette du score.
+     * Met a jour l'etiquette du score.
      */
     private void mettreAJourScore() {
-        etiquetteScore.setText("Paires trouvées : " + pairestrouvees
+        etiquetteScore.setText("Paires trouvees : " + pairestrouvees
                 + " | Tentatives : " + nombreTentatives);
     }
 
@@ -217,6 +292,10 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
         premierBouton = null;
         initialiserCartes();
         afficherCartes();
-        etiquetteScore.setText("Paires trouvées : 0 | Tentatives : 0");
+        etiquetteScore.setText("Paires trouvees : 0 | Tentatives : 0");
+        if (lecteurAudio != null) {
+            lecteurAudio.stop();
+            lecteurAudio.play();
+        }
     }
 }
