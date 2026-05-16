@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +17,9 @@ public class ControleurPrincipal {
     private VBox zoneMenu;
 
     private ControleurMenu menuController;
+
+    // Feuille de style active
+    private String cssActif = "/csi/travail_pratique_3/style.css";
 
     @FXML
     public void initialize() {
@@ -47,8 +51,38 @@ public class ControleurPrincipal {
             }
 
             zoneContenu.getChildren().setAll(page);
+
+            // Appliquer le thème actif à la scène entière
+            appliquerTheme();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Change le thème CSS de toute l'application.
+     * Appelé depuis ControleurMenu quand le joueur clique sur le bouton thème.
+     */
+    public void changerTheme(String cheminCss) {
+        this.cssActif = cheminCss;
+        appliquerTheme();
+    }
+
+    /**
+     * Applique la feuille de style active à toute la scène.
+     */
+    private void appliquerTheme() {
+        Scene scene = zoneContenu.getScene();
+        if (scene != null) {
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(
+                    getClass().getResource(cssActif).toExternalForm()
+            );
+        }
+    }
+
+    public String getCssActif() {
+        return cssActif;
     }
 }

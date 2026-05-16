@@ -51,4 +51,15 @@
         </graphic>
     </Button>
 
+    <Button fx:id="boutonTheme"
+            text="Theme sombre"
+            onAction="#changerTheme"
+            styleClass="bouton-theme">
+        <graphic>
+            <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                <image><Image url="@images/echanges.jpg"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
+
 </VBox>

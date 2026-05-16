@@ -12,6 +12,6 @@
               wrapText="true"
               prefWidth="600"
               styleClass="textarea-reglements"
-              text="Règlements du jeu :&#10;&#10;- Les balles rebondissent dans la zone de jeu.&#10;- Pierre bat Ciseaux, Ciseaux bat Papier, Papier bat Pierre.&#10;- Les balles se transforment lorsqu'elles se touchent.&#10;- Vous pouvez ajouter ou retirer des balles avec les boutons en bas.&#10;&#10;Amusez-vous !"/>
+              text="Règlements du jeu de balles rebondissantes :&#10;&#10;- Les balles rebondissent dans la zone de jeu.&#10;- Pierre bat Ciseaux, Ciseaux bat Papier, Papier bat Pierre.&#10;- Les balles se transforment lorsqu'elles se touchent.&#10;- Vous pouvez ajouter ou retirer des balles avec les boutons en bas.&#10;- Maintenez le clic de souris pour mettre le jeu en pause.&#10;- Relâchez le clic pour reprendre le jeu.&#10;&#10;Règlements du jeu de mémoire :&#10;&#10;- 16 cartes sont disposées face cachée sur la table.&#10;- Cliquez sur une carte pour la retourner.&#10;- Trouvez les paires en retournant 2 cartes identiques.&#10;- Si les 2 cartes sont différentes, elles se retournent après 1 seconde.&#10;- Le jeu se termine quand toutes les paires sont trouvées.&#10;- Essayez de terminer en un minimum de tentatives !&#10;&#10;Amusez-vous !"/>
 
 </StackPane>
