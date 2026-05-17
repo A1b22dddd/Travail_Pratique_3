@@ -17,3 +17,22 @@ public class HelloApplication extends Application {
         stage.show();
     }
 }
+
+
+
+/**
+ * Patron de conception utilise : Singleton
+ * Categorie : Creationnel
+ *
+ * Ou : GestionnaireDeScene.java
+ *
+ * Pourquoi : Le GestionnaireDeScene doit exister en une seule instance
+ * dans toute l'application car il controle la fenetre principale unique.
+ * Le Singleton garantit qu'on accede toujours au meme gestionnaire
+ * peu importe d'ou on l'appelle dans le programme.
+ *
+ * Gains :
+ * - Evite les conflits entre plusieurs gestionnaires
+ * - Acces global et centralise a la fenetre principale
+ * - Controle total sur le cycle de vie de la fenetre
+ */
