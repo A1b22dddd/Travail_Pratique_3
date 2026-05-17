@@ -1,3 +1,26 @@
+
+/**
+ *
+ *@author : HOUNSOU Césaire
+ *Nom et prénom de l'enseignant : François Picard Légaré
+ *Date de la derniere modification : 17-05-2026
+ *Description :
+ * Classe ControleurMemoire
+ * Ce controleur gere le jeu de memoire avec des paires de cartes d'animaux.
+ * Il est responsable de l'affichage des cartes dans une grille 4x4,
+ * de la logique de retournement des cartes, de la detection des paires,
+ * du suivi du score et des tentatives, ainsi que du lancement automatique
+ * de la chanson et de la video au demarrage du jeu.
+ * Il implemente l'interface ControleurAvecPrincipal pour recevoir la reference
+ * du controleur principal et naviguer entre les pages.
+ *
+ * @author Ton nom
+ * @version 1.0
+ */
+
+
+
+
 package csi.travail_pratique_3.controleur;
 
 import csi.travail_pratique_3.modele.Carte;
@@ -20,46 +43,59 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class ControleurMemoire implements ControleurAvecPrincipal {
 
+    /** Grille d'affichage des cartes dans l'interface. */
     @FXML
     private GridPane grilleCartes;
 
+    /** Etiquette affichant le score et le nombre de tentatives. */
     @FXML
     private Label etiquetteScore;
 
-    // Référence au contrôleur principal pour la navigation
+    /** Reference au controleur principal pour la navigation entre les pages. */
     private ControleurPrincipal principal;
 
-    // Liste de toutes les cartes du jeu
+    /** Liste de toutes les cartes du jeu. */
     private List<Carte> listeCartes;
 
-    // Première carte retournée par le joueur
+    /** Premiere carte retournee par le joueur en attente de la deuxieme. */
     private Carte premiereCarteRetournee;
 
-    // Bouton associé à la première carte retournée
+    /** Bouton associe a la premiere carte retournee. */
     private Button premierBouton;
 
-    // Nombre de paires trouvées
+    /** Nombre de paires trouvees par le joueur. */
     private int pairestrouvees;
 
-    // Nombre de tentatives du joueur
+    /** Nombre de tentatives effectuees par le joueur. */
     private int nombreTentatives;
 
-    // Indique si le joueur peut cliquer (bloqué pendant la vérification)
+    /** Indique si le joueur peut cliquer, bloque pendant la verification des paires. */
     private boolean clicAutorise;
 
-    // Lecteur audio pour la chanson
+    /** Lecteur audio pour la chanson de fond. */
     private MediaPlayer lecteurAudio;
 
-    // Lecteur vidéo pour la vidéo
+    /** Lecteur video pour la video affichee dans une fenetre separee. */
     private MediaPlayer lecteurVideo;
 
+    /**
+     * Injecte la reference du controleur principal.
+     *
+     * @param principal le controleur principal de l'application
+     */
     @Override
     public void setPrincipal(ControleurPrincipal principal) {
         this.principal = principal;
     }
 
+    /**
+     * Initialise le jeu au chargement de la page.
+     * Remet les compteurs a zero, cree et affiche les cartes,
+     * puis lance automatiquement la chanson et la video.
+     */
     @FXML
     public void initialize() {
         pairestrouvees = 0;
@@ -71,13 +107,14 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
         initialiserCartes();
         afficherCartes();
 
-        // Lancer le son et la vidéo automatiquement
+        // Lancer le son et la video automatiquement au demarrage du jeu
         lancerChanson();
         lancerVideo();
     }
 
     /**
-     * Charge et joue la chanson son.mp3 en arrière-plan.
+     * Charge et joue la chanson son.mp3 en arriere-plan.
+     * La chanson joue en boucle pendant toute la duree du jeu.
      */
     private void lancerChanson() {
         try {
@@ -93,7 +130,9 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Charge et joue la vidéo vague.mp4 dans une nouvelle fenêtre.
+     * Charge et joue la video vague.mp4 dans une nouvelle fenetre.
+     * Le son de la video est coupe pour ne pas interferer avec la chanson.
+     * La video joue en boucle indefiniment.
      */
     private void lancerVideo() {
         try {
@@ -101,6 +140,8 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
             if (urlVideo != null) {
                 Media video = new Media(urlVideo.toExternalForm());
                 lecteurVideo = new MediaPlayer(video);
+                lecteurVideo.setCycleCount(MediaPlayer.INDEFINITE);
+                lecteurVideo.setMute(true);
 
                 MediaView vueVideo = new MediaView(lecteurVideo);
                 vueVideo.setFitWidth(640);
@@ -123,7 +164,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Arrête la chanson et la vidéo quand on quitte la page.
+     * Arrete la chanson et la video quand le joueur quitte la page du jeu.
      */
     public void arreter() {
         if (lecteurAudio != null) {
@@ -135,7 +176,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Crée les 16 cartes (8 paires) et les mélange aléatoirement.
+     * Cree les 16 cartes (8 paires) et les melange aleatoirement.
      */
     private void initialiserCartes() {
         listeCartes = new ArrayList<>();
@@ -150,7 +191,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Affiche les cartes dans la grille 4x4.
+     * Affiche les cartes melangees dans la grille 4x4.
      */
     private void afficherCartes() {
         grilleCartes.getChildren().clear();
@@ -171,7 +212,10 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Crée un bouton représentant une carte face cachée.
+     * Cree un bouton representant une carte face cachee.
+     *
+     * @param carte la carte associee au bouton
+     * @return le bouton cree avec le dos de la carte
      */
     private Button creerBoutonCarte(Carte carte) {
         Button bouton = new Button();
@@ -186,6 +230,8 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
 
     /**
      * Affiche le dos de la carte sur le bouton.
+     *
+     * @param bouton le bouton sur lequel afficher le dos
      */
     private void afficherDosCarte(Button bouton) {
         var url = getClass().getResource("/csi/travail_pratique_3/images/dos.jpg");
@@ -201,6 +247,9 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
 
     /**
      * Affiche la face de la carte sur le bouton.
+     *
+     * @param bouton le bouton sur lequel afficher la face
+     * @param carte la carte dont on veut afficher l'image
      */
     private void afficherFaceCarte(Button bouton, Carte carte) {
         var url = getClass().getResource("/csi/travail_pratique_3/images/" + carte.getNomImage());
@@ -215,7 +264,13 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Gère le clic sur une carte.
+     * Gere le clic sur une carte.
+     * Si c'est la premiere carte, on la retourne et on attend la deuxieme.
+     * Si c'est la deuxieme carte, on verifie si c'est une paire.
+     * Si oui, les cartes restent visibles. Sinon, elles se retournent apres 1 seconde.
+     *
+     * @param carte la carte sur laquelle le joueur a clique
+     * @param bouton le bouton associe a la carte
      */
     private void gererClicCarte(Carte carte, Button bouton) {
 
@@ -225,14 +280,17 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
         afficherFaceCarte(bouton, carte);
 
         if (premiereCarteRetournee == null) {
+            // Premiere carte retournee — on attend la deuxieme
             premiereCarteRetournee = carte;
             premierBouton = bouton;
 
         } else {
+            // Deuxieme carte retournee — on verifie si c'est une paire
             nombreTentatives++;
             clicAutorise = false;
 
             if (premiereCarteRetournee.getIdPaire() == carte.getIdPaire()) {
+                // Paire trouvee
                 carte.setTrouvee(true);
                 premiereCarteRetournee.setTrouvee(true);
                 bouton.getStyleClass().setAll("carte-trouvee");
@@ -250,6 +308,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
                 }
 
             } else {
+                // Pas une paire — retourner les cartes apres 1 seconde
                 PauseTransition pause = new PauseTransition(Duration.seconds(1));
                 pause.setOnFinished(e -> {
                     carte.setRetournee(false);
@@ -265,7 +324,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Remet a zero la selection courante.
+     * Remet a zero la selection courante apres chaque tentative.
      */
     private void reinitialiserSelection() {
         premiereCarteRetournee = null;
@@ -273,7 +332,7 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Met a jour l'etiquette du score.
+     * Met a jour l'etiquette affichant le score et le nombre de tentatives.
      */
     private void mettreAJourScore() {
         etiquetteScore.setText("Paires trouvees : " + pairestrouvees
@@ -281,7 +340,8 @@ public class ControleurMemoire implements ControleurAvecPrincipal {
     }
 
     /**
-     * Recommence une nouvelle partie.
+     * Recommence une nouvelle partie en remettant tout a zero.
+     * Remelange les cartes et relance la chanson.
      */
     @FXML
     private void rejouer() {
